@@ -3,6 +3,7 @@ package com.telran.qa21;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -36,6 +37,16 @@ public class SearchProductTests {
         driver.findElement(By.id("search_query_top")).sendKeys("summer dresses" + Keys.ENTER);
         String text = driver.findElement(By.className("lighter")).getText();
         Assert.assertEquals(text.toLowerCase(Locale.ROOT), "\"summer dresses\"");
+    }
+
+    @Test
+    public void searchInContainerMenuTest () {
+        // найти элемент и клик на первую меню контента
+    WebElement ul = driver.findElement(By.xpath("//ul[@class='sf-menu clearfix menu-content sf-js-enabled sf-arrows']"));
+    ul.findElement(By.xpath(".//a[@title='Women']")).click();
+
+        WebElement el = driver.findElement(By.xpath("//ul[@class='tree dynamized']"));
+        el.findElement(By.xpath(".//*[contains(text(), 'Tops')]")).click();
     }
 
     @AfterMethod(enabled = false)
